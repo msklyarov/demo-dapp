@@ -74,10 +74,10 @@ class ListingsGrid extends Component {
           .indexOf(filtering.name.toLowerCase()) !== -1)
 
     // TODO: Enable after filling of the web-shop
-    filteredData = filteredData
-      .filter(item =>
-        filtering.beautyServices.includes(item.data.category) ||
-        filtering.cosmetics.includes(item.data.category))
+    // filteredData = filteredData
+    //   .filter(item =>
+    //     filtering.beautyServices.includes(item.data.category) ||
+    //     filtering.cosmetics.includes(item.data.category))
 
     // day of the week
     filteredData = filtering.weekDays.length === 7
