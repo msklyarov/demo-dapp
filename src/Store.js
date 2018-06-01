@@ -1,5 +1,5 @@
 import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 
 import listings from './reducers/Listings'
 import profile from './reducers/Profile'
@@ -7,6 +7,8 @@ import wallet from './reducers/Wallet'
 import alert from './reducers/Alert'
 import users from './reducers/Users'
 import app from './reducers/App'
+import filtering from './reducers/Filtering'
+import facet from './reducers/Facet'
 
 let middlewares = [thunkMiddleware]
 
@@ -15,6 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
   middlewares.push(logger)
 }
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   combineReducers({
     listings,
@@ -23,8 +26,10 @@ const store = createStore(
     alert,
     users,
     app,
+    filtering,
+    facet,
   }),
-  applyMiddleware(...middlewares)
+  composeEnhancers(applyMiddleware(...middlewares))
 )
 
 export default store
