@@ -9,3 +9,15 @@
 .shop-items-100-12em {
   width: calc(100% - 12em);
 }
+
+@media (max-width: 992px) {
+  .shop-items-100-12em {
+    width: 100%;
+  }
+}
+
+@media (min-width: 993px) {
+  .shop-items-100-12em {
+    width: calc(100% - 12em);
+  }
+}

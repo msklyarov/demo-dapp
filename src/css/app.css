@@ -3023,6 +3023,21 @@ footer .footer-links li a {
   }
 }
 
+@media (max-width: 992px) {
+  .facet-block {
+    width: 100%;
+  }
+}
+
+@media (min-width: 993px) {
+  .facet-block-right-border {
+    border-right: 1px solid #ced4da;
+  }
+  .facet-block {
+    max-width: 12em;
+  }
+}
+
 /* xl + */
 @media (min-width: 1200px) {
   .navbar .connectivity .dropdown-menu {

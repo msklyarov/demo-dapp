@@ -38,8 +38,10 @@ class FacetBlock extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps.filtering);
 
-    document.getElementById('sort-order').className =
-      nextProps.filtering.sortKey !== sortKey.none ? '' : 'hidden'
+    if (document.getElementById('sort-order')) {
+      document.getElementById('sort-order').className =
+        nextProps.filtering.sortKey !== sortKey.none ? '' : 'hidden'
+    }
   }
 
   handleKeyChange(e) {
@@ -51,12 +53,16 @@ class FacetBlock extends Component {
       })
       this.props.setFiltering({ sortKey: e.target.value, sortOrder: sortOrderState })
 
-      document.getElementById('sort-order').className = ''
+      if (document.getElementById('sort-order')) {
+        document.getElementById('sort-order').className = ''
+      }
     } else {
       this.setState({ sortKey: e.target.value, sortOrder: null })
       this.props.setFiltering({ sortKey: e.target.value, sortOrder: null })
 
-      document.getElementById('sort-order').className = 'hidden'
+      if (document.getElementById('sort-order')) {
+        document.getElementById('sort-order').className = 'hidden'
+      }
     }
   }
 
@@ -97,239 +103,237 @@ class FacetBlock extends Component {
     const listingTypes = ["Beauty services", "Cosmetics"]
 
     return (
-      <section
-        id="filtering-block"
-        className="hidden"
-        style={{ borderRight: '1px solid #ced4da' }}
-      >
-        <div style={{ margin: '40px 20px' }}>
-          <form className="filtering">
-            <div className="form-group">
-              <div>
-                <label
-                  style={{
-                    color: 'black',
-                    fontWeight: 'bold'
-                  }}
-                  htmlFor="location"
-                >
-                  Location
-                </label>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="location"
-                  id="location"
-                  className="form-control"
-                  style={{ height: '1.5em' }}
-                  onChange={this.handleValueChange('location')}
-                  value={this.state.location}
-                />
-              </div>
-              <div style={{ marginTop: "0.5em" }}>
-                <label
-                  style={{
-                    color: 'black',
-                    fontWeight: 'bold'
-                  }}
-                  htmlFor="name"
-                >
-                  Item name
-                </label>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="form-control"
-                  style={{ height: '1.5em' }}
-                  onChange={this.handleValueChange('name')}
-                  value={this.state.name}
-                />
-              </div>
-              <hr />
-              <div style={{ fontWeight: 'bold' }}>
-                Show categories
-              </div>
-              <details style={{ margin: '0.5em 0' }}>
-                <summary>{listingTypes[0]}</summary>
-                <section style={{ marginTop: '0.5em' }}>
-                  {beautyServicesList.map((item, i) => (
-                    <div key={i} style={{
-                      marginLeft: '1em',
-                      textOverflow: 'ellipsis',
+      <section id="filtering-block" className="hidden">
+        <div className="facet-block-right-border">
+          <div style={{ margin: '40px 20px' }}>
+            <form className="filtering">
+              <div className="form-group">
+                <div>
+                  <label
+                    style={{
+                      color: 'black',
+                      fontWeight: 'bold'
+                    }}
+                    htmlFor="location"
+                  >
+                    Location
+                  </label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="location"
+                    id="location"
+                    className="form-control"
+                    style={{ height: '1.5em' }}
+                    onChange={this.handleValueChange('location')}
+                    value={this.state.location}
+                  />
+                </div>
+                <div style={{ marginTop: "0.5em" }}>
+                  <label
+                    style={{
+                      color: 'black',
+                      fontWeight: 'bold'
+                    }}
+                    htmlFor="name"
+                  >
+                    Item name
+                  </label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    className="form-control"
+                    style={{ height: '1.5em' }}
+                    onChange={this.handleValueChange('name')}
+                    value={this.state.name}
+                  />
+                </div>
+                <hr />
+                <div style={{ fontWeight: 'bold' }}>
+                  Show categories
+                </div>
+                <details style={{ margin: '0.5em 0' }}>
+                  <summary>{listingTypes[0]}</summary>
+                  <section style={{ marginTop: '0.5em' }}>
+                    {beautyServicesList.map((item, i) => (
+                      <div key={i} style={{
+                        marginLeft: '1em',
+                        textOverflow: 'ellipsis',
 
-                      /* Required for text-overflow to do anything */
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden'
-                    }}>
-                      <input
-                        id={item}
-                        type="checkbox"
-                        checked={this.state.beautyServices.includes(item)}
-                        onChange={this.handleCheckBoxValueChange('beautyServices', item)}
-                      />
-                      <label
-                        style={{
-                          color: 'black',
-                          marginBottom: '3px'
-                        }}
-                        htmlFor={item}
-                      >
-                        {item}
+                        /* Required for text-overflow to do anything */
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden'
+                      }}>
+                        <input
+                          id={item}
+                          type="checkbox"
+                          checked={this.state.beautyServices.includes(item)}
+                          onChange={this.handleCheckBoxValueChange('beautyServices', item)}
+                        />
+                        <label
+                          style={{
+                            color: 'black',
+                            marginBottom: '3px'
+                          }}
+                          htmlFor={item}
+                        >
+                          {item}
+                          </label>
+                      </div>
+                    ))}
+                  </section>
+                </details>
+                <details style={{ margin: '0.5em 0' }}>
+                  <summary>{listingTypes[1]}</summary>
+                  <section style={{ marginTop: '0.5em' }}>
+                    {cosmeticsList.map((item, i) => (
+                      <div key={i} style={{
+                        marginLeft: '1em',
+                        textOverflow: 'ellipsis',
+
+                        /* Required for text-overflow to do anything */
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden'
+                      }}>
+                        <input
+                          id={item}
+                          type="checkbox"
+                          checked={this.state.cosmetics.includes(item)}
+                          onChange={this.handleCheckBoxValueChange('cosmetics', item)}
+                        />
+                        <label
+                          style={{
+                            color: 'black',
+                            marginBottom: '3px',
+                          }}
+                          htmlFor={item}
+                        >
+                          {item}
                         </label>
-                    </div>
-                  ))}
-                </section>
-              </details>
-              <details style={{ margin: '0.5em 0' }}>
-                <summary>{listingTypes[1]}</summary>
-                <section style={{ marginTop: '0.5em' }}>
-                  {cosmeticsList.map((item, i) => (
-                    <div key={i} style={{
-                      marginLeft: '1em',
-                      textOverflow: 'ellipsis',
-
-                      /* Required for text-overflow to do anything */
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden'
-                    }}>
-                      <input
-                        id={item}
-                        type="checkbox"
-                        checked={this.state.cosmetics.includes(item)}
-                        onChange={this.handleCheckBoxValueChange('cosmetics', item)}
-                      />
-                      <label
-                        style={{
-                          color: 'black',
-                          marginBottom: '3px',
-                        }}
-                        htmlFor={item}
-                      >
-                        {item}
-                      </label>
-                    </div>
-                  ))}
-                </section>
-              </details>
-              <hr />
-              <div style={{ fontWeight: 'bold' }}>
-                Select timeframe
-              </div>
-              <details style={{ margin: '0.5em 0' }}>
-                <summary>Select days of the week</summary>
-                <section style={{ marginTop: '0.5em' }}>
-                  {weekDaysList.map((item, i) => (
-                    <div key={i} style={{ marginLeft: '1em' }}>
-                      <input
-                        id={item}
-                        type="checkbox"
-                        checked={this.state.weekDays.includes(item)}
-                        onChange={this.handleCheckBoxValueChange('weekDays', item)}
-                      />
-                      <label
-                        style={{
-                          color: 'black',
-                          marginBottom: '3px'
-                        }}
-                        htmlFor={item}
-                      >
-                        {item}
-                      </label>
-                    </div>
-                  ))}
-                </section>
-              </details>
-              <div>
-                <label
-                  style={{
-                    color: 'black',
-                    fontWeight: 'bold'
-                  }}
-                  htmlFor="dayHourFrom"
-                >
-                  Hours
-                </label>
-              </div>
-              <div className="row" style={{ margin: 0 }}>
-                <input
-                  id="dayHourFrom"
-                  type="number"
-                  className="form-control"
-                  style={{ height: '1.5em', width: '4em' }}
-                  min="0"
-                  max="23"
-                  onChange={this.handleValueChange('dayHourFrom')}
-                  value={this.state.dayHourFrom}
-                />
-                {' - '}
-                <input
-                  id="dayHourTo"
-                  type="number"
-                  className="form-control"
-                  style={{ height: '1.5em', width: '4em' }}
-                  min="0"
-                  max="23"
-                  onChange={this.handleValueChange('dayHourTo')}
-                  value={this.state.dayHourTo}
-                />
-              </div>
-              <hr />
-              <div>
-                <label
-                  style={{
-                    color: 'black',
-                    fontWeight: 'bold'
-                  }}
-                  htmlFor="sortBy"
-                >
-                  Sort by
-                </label>
-              </div>
-              <select
-                id="sortBy"
-                className="form-control"
-                style={{ height: '2.2em', marginBottom: '0.5em' }}
-                value={this.state.sortKey || ''}
-                onChange={this.handleKeyChange}
-              >
-                {Object.keys(sortKey).map((item, i) => <option key={i} value={item}>{item}</option>)}
-              </select>
-              <span id="sort-order" className="hidden">
+                      </div>
+                    ))}
+                  </section>
+                </details>
+                <hr />
+                <div style={{ fontWeight: 'bold' }}>
+                  Select timeframe
+                </div>
+                <details style={{ margin: '0.5em 0' }}>
+                  <summary>Select days of the week</summary>
+                  <section style={{ marginTop: '0.5em' }}>
+                    {weekDaysList.map((item, i) => (
+                      <div key={i} style={{ marginLeft: '1em' }}>
+                        <input
+                          id={item}
+                          type="checkbox"
+                          checked={this.state.weekDays.includes(item)}
+                          onChange={this.handleCheckBoxValueChange('weekDays', item)}
+                        />
+                        <label
+                          style={{
+                            color: 'black',
+                            marginBottom: '3px'
+                          }}
+                          htmlFor={item}
+                        >
+                          {item}
+                        </label>
+                      </div>
+                    ))}
+                  </section>
+                </details>
+                <div>
+                  <label
+                    style={{
+                      color: 'black',
+                      fontWeight: 'bold'
+                    }}
+                    htmlFor="dayHourFrom"
+                  >
+                    Hours
+                  </label>
+                </div>
+                <div className="row" style={{ margin: 0 }}>
+                  <input
+                    id="dayHourFrom"
+                    type="number"
+                    className="form-control"
+                    style={{ height: '1.5em', width: '4em' }}
+                    min="0"
+                    max="23"
+                    onChange={this.handleValueChange('dayHourFrom')}
+                    value={this.state.dayHourFrom}
+                  />
+                  {' - '}
+                  <input
+                    id="dayHourTo"
+                    type="number"
+                    className="form-control"
+                    style={{ height: '1.5em', width: '4em' }}
+                    min="0"
+                    max="23"
+                    onChange={this.handleValueChange('dayHourTo')}
+                    value={this.state.dayHourTo}
+                  />
+                </div>
+                <hr />
+                <div>
+                  <label
+                    style={{
+                      color: 'black',
+                      fontWeight: 'bold'
+                    }}
+                    htmlFor="sortBy"
+                  >
+                    Sort by
+                  </label>
+                </div>
                 <select
+                  id="sortBy"
                   className="form-control"
-                  style={{ height: '2.2em' }}
-                  value={this.state.sortOrder || ''}
-                  onChange={this.handleValueChange('sortOrder')}
+                  style={{ height: '2.2em', marginBottom: '0.5em' }}
+                  value={this.state.sortKey || ''}
+                  onChange={this.handleKeyChange}
                 >
-                  {Object.keys(sortOrder).map((item, i) => <option key={i} value={item}>{item}</option>)}
+                  {Object.keys(sortKey).map((item, i) => <option key={i} value={item}>{item}</option>)}
                 </select>
-              </span >
-              <div style={{ marginTop: "1em" }}>
-                <button
-                  type="button"
-                  className="form-control"
-                  style={{ height: '2.5em' }}
-                  onClick={this.resetFiltering}
-                >
-                  Reset Filter
-                </button>
+                <span id="sort-order" className="hidden">
+                  <select
+                    className="form-control"
+                    style={{ height: '2.2em' }}
+                    value={this.state.sortOrder || ''}
+                    onChange={this.handleValueChange('sortOrder')}
+                  >
+                    {Object.keys(sortOrder).map((item, i) => <option key={i} value={item}>{item}</option>)}
+                  </select>
+                </span >
+                <div style={{ marginTop: "1em" }}>
+                  <button
+                    type="button"
+                    className="form-control"
+                    style={{ height: '2.5em' }}
+                    onClick={this.resetFiltering}
+                  >
+                    Reset Filter
+                  </button>
+                </div>
+                <div style={{ marginTop: "1em" }}>
+                  <button
+                    type="button"
+                    className="form-control"
+                    style={{ height: '2.5em' }}
+                    onClick={this.clearFiltering}
+                  >
+                    Clear Filter
+                  </button>
+                </div>
               </div>
-              <div style={{ marginTop: "1em" }}>
-                <button
-                  type="button"
-                  className="form-control"
-                  style={{ height: '2.5em' }}
-                  onClick={this.clearFiltering}
-                >
-                  Clear Filter
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </section>
     );

@@ -4,15 +4,23 @@ import FacetBlock from './facet-block'
 
 const Layout = ({ children }) => {
   // display footer
-  document.getElementById('jolyy-footer').className = ''
+  if (document.getElementById('jolyy-footer')) {
+    document.getElementById('jolyy-footer').className = ''
+  }
 
   return (
     <Fragment>
       <main className="d-flex flex-column">
         <NavBar />
         <section className="container">
-          <div className="row">
-            <div style={{ verticalAlign: 'top', maxWidth: '12em' }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap"
+            }}
+          >
+            <div className="facet-block" style={{ verticalAlign: 'top' }}>
               {window.location.href.endsWith('/#/') && <FacetBlock />}
             </div>
             <div id="shop-items">
