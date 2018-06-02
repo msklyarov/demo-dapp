@@ -91,7 +91,7 @@ var config = {
     new Dotenv(),
     new webpack.EnvironmentPlugin(env),
     new CopyWebpackPlugin([
-      'public/favicon.ico',
+      'public/fav_jolly.png',
       { from: 'public/images', to: 'images' },
       { from: 'public/fonts', to: 'fonts' },
       { from: 'public/schemas', to: 'schemas' },
